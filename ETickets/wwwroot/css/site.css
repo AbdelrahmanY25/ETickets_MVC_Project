@@ -1,0 +1,164 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --main-color: #ff4757; /* Brighter red */
+    --main-color-alt: #e74c3c;
+    --section-background: #f1f2f6;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Cairo', sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+/* Small */
+@media (max-width: 768px) {
+    .articles .container .card .text h3 {
+        font-size: 1.2rem;
+    }
+
+    .articles .container .card .text p {
+        font-size: 0.9rem;
+    }
+}
+
+/* Medium */
+@media(min-width: 992px) {
+    .container {
+        width: 970px;
+    }
+}
+/* Large */
+@media(min-width: 1200px) {
+    .container {
+        width: 1170px;
+    }
+}
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin-bottom: 60px;
+}
+.articles {
+    padding-top: var(--section-padding);
+    padding-bottom: var(--section-padding);
+}
+
+.articles .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 40px;
+}
+
+.articles .container .card {
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+.articles .container .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.articles .container .card img {
+    max-width: 100%;
+}
+
+.articles .container .card .text {
+    padding: 20px;
+    border-bottom: 1px solid #e6e6e7;
+}
+
+.articles .container .card .text h3 {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.price {
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+
+.articles .container .card .text p {
+    margin: 10px 0 0 0;
+    line-height: 1.5;
+    color: #777
+}
+
+.articles .container .card .read {
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--main-color);
+}
+
+.articles .container .card .read a {
+    color: var(--main-color);
+    font-weight: bold;
+}
+
+.articles .container .card .read i {
+    font-size: 14px;
+}
+
+.articles .container .card:hover .read i {
+    animation: moving-arrow 0.6s linear infinite;
+}
+.read a:hover {
+    text-decoration: underline;
+    color: #1787e0; /* Darker shade of blue */
+}
+.date-status {
+    padding: 5px 8px;
+    border-radius: 3px;
+    font-weight: bold;
+    text-align: center;
+    color: #000;
+}
+
+.date-status.expired {
+    background-color: #e74c3c; /* Red */
+}
+
+.date-status.upcoming {
+    background-color: #f39c12; /* Orange */
+}
+
+.date-status.avaliable {
+background-color: #2ecc71; /* Green */
+}
+.mybtn {
+    position: absolute;
+    right: 100px;
+    top: 88px;
+}

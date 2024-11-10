@@ -1,0 +1,47 @@
+﻿@model ETickets.Models.Ticket
+
+<h1>BookTicket</h1>
+
+<h4>Ticket</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="BookTicket">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="hidden" asp-for="MovieId" class="form-control" asp-items="ViewBag.MovieId">
+            </div>
+            <div class="form-group mt-3">
+                <input type="hidden" asp-for="ApplicationUserId" class="form-control" />
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="BookedTickets" class="control-label"></label>
+                <input asp-for="BookedTickets" class="tick form-control" value="1" min="1" max="100" />
+                <span asp-validation-for="BookedTickets" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script>
+    var tickInput = document.querySelector(".tick");
+
+    tickInput.oninput = () => {
+        if (tickInput.value > 100)
+            tickInput.value = 100;
+        else if (tickInput.value <= 0)
+            tickInput.value = 1;
+    }
+
+</script>

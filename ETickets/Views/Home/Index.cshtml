@@ -1,0 +1,75 @@
+﻿@using ETickets.Data.Enums
+@model IEnumerable<Movie>
+
+@section Scripts {
+    <partial name="_NotificationPartial.cshtml"></partial>
+}
+
+<div style="margin: 10px auto 25px; max-width: 80%">
+    <form style="display: flex; gap: 5px" action="/Home/Index" method="post">
+        <input class="form-control" type="text" placeholder="Enter Movie Name" name="query" />
+        <button class="btn btn-success">Search</button>
+    </form>
+</div>
+
+<div class="articles" id="articles">
+    <div class="container">
+        
+    @foreach (var movie in Model)
+    {    
+        <div class="card">
+            <div class="image">
+                <img src="~/images/movies/@movie.ImgUrl" alt="">
+            </div>
+            <div class="text">
+                <h3>@movie.Name</h3>
+                <p>Price: <span style="background-color: #2196f3; color: #fff"  class="price">@movie.Price.ToString("C")</span></p>
+                @{
+                    DateTime toDay = DateTime.Now;
+                    if(movie.EndDate > toDay)
+                    {
+                        <p class="date-status expired">@MovieStatus.Expired</p>
+                    }
+                    else if (movie.StartDate < toDay)
+                    {
+                        <p class="date-status avaliable">@MovieStatus.Avaliable</p>
+                    }
+                    else
+                    {
+                        <p class="date-status upcoming">@MovieStatus.Upcoming</p>
+                    }
+                }
+                <p>Cinema: @movie.Cinema.Name</p>
+                <p>Start Date: @movie.StartDate</p>
+                <p>End Date: @movie.EndDate</p>
+                <p>Avaliable Tickets: @movie.NumberOfTickets</p>
+                <a asp-controller="Category" asp-action="Details" asp-route-id="@movie.Category.Id">@movie.Category.Name</a>                
+            </div>
+            <div class="read">
+                <a href="/Home/Details/?movieId=@movie.Id">More Details</a>            
+            </div>
+            <div class="read">                    
+                <a class="btn btn-success" style="color: #fff" asp-action="BookTicket" asp-controller="Ticket" asp-route-movieId="@movie.Id">Book Ticket</a>
+            </div>
+        </div>       
+    }
+    </div>
+    <div style="margin: 50px; display: flex; justify-content: center">
+        <nav aria-label="Page navigation example" style="margin: 50px 50%">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="/Home/Index?pageNumber=@(Math.Max(1, ViewBag.PageNumber - 1))">Previous</a>
+                </li>
+                @for (int i = 1; i <= ViewBag.Count; i++)
+                {
+                    <li class="page-item @(i == ViewBag.PageNumber ? "active" : "")">
+                        <a class="page-link" href="/Home/Index?pageNumber=@i">@i</a>
+                    </li>
+                }
+                <li class="page-item">
+                    <a class="page-link" href="/Home/Index?pageNumber=@(Math.Min(ViewBag.Count, ViewBag.PageNumber + 1))">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

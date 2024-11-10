@@ -1,0 +1,8 @@
+﻿@if (TempData["Added"] != null)
+{
+    <script>toastr.success('@TempData["Added"]')</script>
+}
+@if (TempData["Payed"] != null)
+{
+    <script>toastr.success('@TempData["Payed"]')</script>
+}

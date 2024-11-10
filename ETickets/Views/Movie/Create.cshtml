@@ -1,0 +1,101 @@
+﻿@model ETickets.Models.Movie
+
+<h1>Create Movie</h1>
+
+<h4>Movie</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form enctype="multipart/form-data" asp-controller="Movie" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="ImgUrl" class="control-label"></label>
+                <input type="file" asp-for="ImgUrl" class="form-control">
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="TrailerUrl" class="control-label"></label>
+                <input asp-for="TrailerUrl" class="form-control" />
+                <span asp-validation-for="TrailerUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="EndDate" class="control-label"></label>
+                <input asp-for="EndDate" class="form-control" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>            
+            <div class="form-group mt-3">
+                <label asp-for="CinemaId" class="control-label">Cinema Name</label>
+                <select asp-for="CinemaId" class ="form-control">
+                    @foreach (var item in ViewBag.Cinemas)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="CategoryId" class="control-label">Categor</label>
+                <select asp-for="CategoryId" class="form-control mb-5">
+                    @foreach (var item in ViewBag.Categories)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group actors">
+            <label asp-for="Actors" class="control-label"></label>
+            <select name="arrOfActors" multiple>
+
+                    @foreach (var item in ViewBag.Actors)
+                    {                            
+                        <option value="@item.Id">@item.FirstName @item.LastName</option>            
+                    }
+            </select>
+            </div>
+            <div class="form-group mt-5">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<style>
+    .actors {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    .actors input {
+        margin-right: 10px;
+    }
+
+    .actors .control-label  {
+            display: block;
+            margin-bottom: 5px;
+    }
+</style>

@@ -1,0 +1,90 @@
+﻿@model IEnumerable<ETickets.Models.Category>
+
+<h1>All Categories</h1>
+
+<form style="margin: 10px auto 10px 0; display: flex; gap: 5px; max-width: 40%" action="/Category/Index" method="post">
+    <input class="form-control" type="text" placeholder="Enter Movie Name" name="query" />
+    <button class="btn btn-success">Search</button>
+</form>
+
+<a class="btn btn-primary mybtn mb-5" asp-action="Create">Add Category</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>Details</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">All Movies</a>
+            </td>
+            <td>
+                <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.Id">Update</a>
+            </td>
+            <td>
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id" data-bs-toggle="modal" data-bs-target="#deleteModal" data-categoryid="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<div style="margin: 50px; display: flex; justify-content: center">
+    <nav aria-label="Page navigation example" style="margin: 50px 50%">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="/Category/Index?pageNumber=@(Math.Max(1, ViewBag.PageNumber - 1))">Previous</a>
+            </li>
+            @for (int i = 1; i <= ViewBag.Count; i++)
+            {
+                <li class="page-item @(i == ViewBag.PageNumber ? "active" : "")">
+                    <a class="page-link" href="/Category/Index?pageNumber=@i">@i</a>
+                </li>
+            }
+            <li class="page-item">
+                <a class="page-link" href="/Category/Index?pageNumber=@(Math.Min(ViewBag.Count, ViewBag.PageNumber + 1))">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this category?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form id="deleteForm" method="post" action="/Category/Delete">
+                    <input type="hidden" name="id" id="categoryIdInput" value="" />
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var deleteModal = document.getElementById('deleteModal');
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var categoryId = button.getAttribute('data-categoryid');
+        var input = document.getElementById('categoryIdInput');
+        input.value = categoryId;
+    });
+</script>

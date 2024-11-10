@@ -1,0 +1,44 @@
+﻿@model IEnumerable<ETickets.Models.UsersOrders>
+
+@section Scripts {
+    <partial name="_NotificationPartial.cshtml"></partial>
+}
+
+<h1>All Orders</h1>
+
+<table class="table">
+    <thead>
+        <tr tyle="text-align: center">
+            <th>
+                Name
+            </th>
+            <th>
+                Movie Name
+            </th>
+            <th>
+                Order Price
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumberOfTickets)
+            </th>            
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr tyle="text-align: center">
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MovieName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MoviePrice)$
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfTickets)
+            </td>                                 
+        </tr>
+}
+    </tbody>
+</table>

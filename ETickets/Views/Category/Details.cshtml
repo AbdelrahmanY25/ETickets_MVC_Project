@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Movie>
+
+<div class="articles" id="articles">
+    <div class="container">
+        @foreach (var movie in @Model)
+        {
+            <div class="card">
+                <div class="image">
+                    <img src="~/images/movies/@movie.ImgUrl" alt="">
+                </div>
+                <div class="text">
+                    <h3>@movie.Name</h3>
+                    <p>Price: <span style="background-color: #2196f3; color: #fff" class="price">@movie.Price</span></p>
+                    <p>Cinema: @movie.Cinema.Name</p>
+                    <p>Start Date: @movie.StartDate</p>
+                    <p>End Date: @movie.EndDate</p>
+                    <p>Category: @movie.Category.Name</p>
+                </div>
+                <div class="read">
+                    <a href="/Home/Details/?movieId=@movie.Id">More Details</a>
+                    <i class="fas fa-long-arrow-alt-right"></i>
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
